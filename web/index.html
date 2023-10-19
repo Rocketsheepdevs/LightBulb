@@ -55,5 +55,28 @@
       });
     });
   </script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCKdft_mTWm87eJtdysQDL7AoxHJ1gnkjU",
+      authDomain: "lightbulb-60abb.firebaseapp.com",
+      projectId: "lightbulb-60abb",
+      storageBucket: "lightbulb-60abb.appspot.com",
+      messagingSenderId: "194400046349",
+      appId: "1:194400046349:web:760a46a4990771e781f444",
+      measurementId: "G-LB59RYC0TK"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
