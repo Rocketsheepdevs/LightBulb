@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lightbulb/screens/HomeScreen.dart';
+import 'package:lightbulb/utils/AuthService.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,19 +9,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
-  void _login() {
-    // Implement your authentication logic here
-    // For simplicity, let's just print the entered username and password
-    print("Username: ${_usernameController.text}");
-    print("Password: ${_passwordController.text}");
-
-    // Navigate to the home screen after successful login
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +33,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: _login,
+              ///Lets make the auth async cuz it's returns a promise
+              onPressed: () async {
+                AuthService authService = AuthService();
+                await authService.login(
+                  context: context,
+                  username: _usernameController.text,
+                  password: _passwordController.text,
+                );
+              },
               child: Text('Login'),
             ),
           ],
