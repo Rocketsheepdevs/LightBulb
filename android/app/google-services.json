@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "194400046349",
+    "project_id": "lightbulb-60abb",
+    "storage_bucket": "lightbulb-60abb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194400046349:android:6404e3b404e2800f81f444",
+        "android_client_info": {
+          "package_name": "com.example.lightbulb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC6wgzPpGumOScXfLrWaxYgCKZZur91f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
