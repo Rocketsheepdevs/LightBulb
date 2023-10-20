@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lightbulb/screens/NewUserPage.dart';
 import 'package:lightbulb/utils/AuthService.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,6 +10,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  void _newUser() {
+    // Navigate to the home screen after register
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => NewUserPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +52,11 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text('Login'),
             ),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: _newUser,
+              child: Text('Create New User'),
+            )
           ],
         ),
       ),
