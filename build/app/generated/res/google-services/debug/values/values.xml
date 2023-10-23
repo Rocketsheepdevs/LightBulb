@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="firebase_database_url" translatable="false">https://lightbulb-60abb-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="gcm_defaultSenderId" translatable="false">194400046349</string>
     <string name="google_api_key" translatable="false">AIzaSyAC6wgzPpGumOScXfLrWaxYgCKZZur91f8</string>
     <string name="google_app_id" translatable="false">1:194400046349:android:6404e3b404e2800f81f444</string>

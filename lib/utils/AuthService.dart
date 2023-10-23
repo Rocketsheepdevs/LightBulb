@@ -24,4 +24,13 @@ class AuthService {
       print('Error signing in: $e');
     }
   }
+
+  Future<void> signOut({required BuildContext context}) async {
+    try {
+      await _auth.signOut();
+      print('User signed out');
+    } catch (e) {
+      print('Error signing out: $e');
+    }
+  }
 }
