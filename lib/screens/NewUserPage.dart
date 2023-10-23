@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(MyApp());
-}
-
-class User {
-  String username;
-  String password;
-  String confirmPassword;
-  String name;
-  String gender;
-  DateTime birthday;
-
-  User({
-    required this.username,
-    required this.password,
-    required this.confirmPassword,
-    required this.name,
-    required this.gender,
-    required this.birthday,
-  });
 }
 
 class MyApp extends StatelessWidget {
@@ -44,6 +28,8 @@ class _NewUserPageState extends State<NewUserPage> {
   final TextEditingController nameController = TextEditingController();
   String gender = 'Male'; // Default gender
   DateTime? selectedDate;
+  final CollectionReference _usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = (await showDatePicker(
@@ -59,6 +45,45 @@ class _NewUserPageState extends State<NewUserPage> {
     }
   }
 
+  Future<void> _saveUser() async {
+    if (usernameController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        confirmPasswordController.text.isNotEmpty &&
+        nameController.text.isNotEmpty) {
+      try {
+        // Create the user in Firebase Authentication
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usernameController.text,
+          password: passwordController.text,
+        );
+
+        // Generate a UID for the user
+        String uid = userCredential.user?.uid ?? '';
+
+        // Add user data to Firestore using the generated UID
+        await _usersCollection.doc(uid).set({
+          'username': usernameController.text,
+          'name': nameController.text,
+          'gender': gender,
+          'birthday': selectedDate?.toIso8601String() ??
+              DateTime.now().toIso8601String(),
+          'uid': uid,
+        });
+
+        // Clear text controllers after user creation
+        usernameController.clear();
+        passwordController.clear();
+        confirmPasswordController.clear();
+        nameController.clear();
+      } catch (e) {
+        // Handle registration errors
+        print('Error during user registration: $e');
+        // You can display an error message to the user here
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,9 +95,9 @@ class _NewUserPageState extends State<NewUserPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
+            TextField(
               controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: InputDecoration(labelText: 'Email'),
             ),
             TextFormField(
               controller: passwordController,
@@ -129,20 +154,7 @@ class _NewUserPageState extends State<NewUserPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Create User object with entered data
-                User newUser = User(
-                  username: usernameController.text,
-                  password: passwordController.text,
-                  confirmPassword: confirmPasswordController.text,
-                  name: nameController.text,
-                  gender: gender,
-                  birthday: selectedDate ?? DateTime.now(),
-                );
-
-                // Do something with the new user data, e.g., save to a database
-                print('New User: $newUser');
-              },
+              onPressed: _saveUser,
               child: Text('Create User'),
             ),
           ],

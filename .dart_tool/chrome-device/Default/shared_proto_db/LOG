@@ -1,4 +1,7 @@
-2023/10/21-17:40:12.736 6407 Reusing MANIFEST /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.r3Uvhb/flutter_tools_chrome_device.5cOfq8/Default/shared_proto_db/MANIFEST-000001
-2023/10/21-17:40:12.736 6407 Recovering log #3
-2023/10/21-17:40:12.737 6407 (ignoring error) /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.r3Uvhb/flutter_tools_chrome_device.5cOfq8/Default/shared_proto_db/000003.log: dropping 31535 bytes; Corruption: checksum mismatch
-2023/10/21-17:40:12.744 6407 Reusing old log /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.r3Uvhb/flutter_tools_chrome_device.5cOfq8/Default/shared_proto_db/000003.log 
+2023/10/23-10:57:16.394 13d03 Reusing MANIFEST /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.WviKBl/flutter_tools_chrome_device.YAFz2z/Default/shared_proto_db/MANIFEST-000001
+2023/10/23-10:57:16.394 13d03 Recovering log #3
+2023/10/23-10:57:16.396 13d03 (ignoring error) /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.WviKBl/flutter_tools_chrome_device.YAFz2z/Default/shared_proto_db/000003.log: dropping 31535 bytes; Corruption: checksum mismatch
+2023/10/23-10:57:16.406 13d03 Reusing old log /private/var/folders/wr/y7ldkg_s3395s0779fmb0rhh0000gn/T/flutter_tools.WviKBl/flutter_tools_chrome_device.YAFz2z/Default/shared_proto_db/000003.log 
+2023/10/23-10:57:45.906 8c03 Level-0 table #5: started
+2023/10/23-10:57:45.936 8c03 Level-0 table #5: 128258 bytes OK
+2023/10/23-10:57:45.996 8c03 Delete type=0 #3
