@@ -11,7 +11,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int imageIndex = 0;
+  int userIndex = 0;
   int currentIndex = 1;
+  List<List<String>> images = [
+    ['images/ahri/1.png', 'images/ahri/2.png'],
+    ['images/asuna/1.png', 'images/asuna/2.png', 'images/asuna/3.png'],
+    ['images/jett/1.png', 'images/jett/2.png'],
+  ];
+  List<String> userName = ['Ahri', 'Asuna', 'Jett'];
   changeIndex(index) {
     setState(() {
       currentIndex = index;
@@ -19,28 +27,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onItemTapped(int index) {
-    // Handle navigation to the next page based on the selected index.
-    // For simplicity, I'm using a switch statement here.
     switch (index) {
       case 0:
-        // Navigate to the Chat page
-        // You can replace 'ChatPage' with the actual class/page you want to navigate to.
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ChatPage()),
         );
         break;
       case 1:
-        // Navigate to the Search page
-        // Replace 'SearchPage' with the actual class/page you want to navigate to.
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SearchPage()),
         );
         break;
       case 2:
-        // Navigate to the Me page
-        // Replace 'MePage' with the actual class/page you want to navigate to.
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MePage()),
@@ -83,7 +83,72 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Text('screen'),
+      body: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          double delta = details.primaryVelocity!;
+          if (delta < -500) {
+            setState(() {
+              userIndex = (userIndex + 1) % images.length;
+              imageIndex = 0;
+            });
+          } else if (delta > 500) {
+            setState(() {
+              userIndex = (userIndex - 1 + images.length) % images.length;
+              imageIndex = 0;
+            });
+          }
+        },
+        child: ListView(
+          shrinkWrap: false,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      kBottomNavigationBarHeight,
+                  child: Image.asset(
+                    images[userIndex][imageIndex],
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.keyboard_arrow_left,
+                          size: 24.0,
+                        ),
+                        onPressed: _onBackPressed,
+                      ),
+                    ),
+                    SizedBox(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.keyboard_arrow_right,
+                          size: 24.0,
+                        ),
+                        onPressed: _onNextPressed,
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                    bottom: 0,
+                    child: new Container(
+                      height: 42.0,
+                      width: MediaQuery.of(context).size.width,
+                      color: Color.fromRGBO(0, 0, 139, 0.7),
+                    ))
+              ],
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
         items: const [
@@ -103,5 +168,18 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  void _onBackPressed() {
+    setState(() {
+      imageIndex = (imageIndex - 1 + images[userIndex].length) %
+          images[userIndex].length;
+    });
+  }
+
+  void _onNextPressed() {
+    setState(() {
+      imageIndex = (imageIndex + 1) % images[userIndex].length;
+    });
   }
 }
