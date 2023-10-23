@@ -92,7 +92,9 @@ class _ChatPageState extends State<ChatPage> {
       // Now you can use messageMap as a Map
       // ...
       messageMap.forEach((key, value) {
-        if (messages.contains(value).toString() == false) {
+        bool messageExists =
+            messages.any((m) => m.timestamp == value['timestamp']);
+        if (!messageExists) {
           messages.add(ChatMessageModel(
             messageContent: value['text'],
             messageType: value['type'],
