@@ -3,6 +3,7 @@ import 'package:lightbulb/model/chatMessageModel.dart';
 import 'package:lightbulb/utils/AuthService.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:lightbulb/utils/FirebaseHandler.dart';
+import 'dart:async';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -12,13 +13,22 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController messageController = TextEditingController();
   ScrollController _scrollController = ScrollController();
+  Timer? _timer;
+
   List<ChatMessageModel> messages = [];
   @override
   void initState() {
     super.initState();
 
     retrieveAllMessage(); //Retrieve all message from the database when page initialize
-    // Scroll to the bottom when the widget first builds
+    startMessageChecker();
+  }
+
+  void startMessageChecker() {
+    // Start a repeating timer
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      retrieveLatestMessage();
+    });
   }
 
   // Send message function
@@ -82,13 +92,14 @@ class _ChatPageState extends State<ChatPage> {
       // Now you can use messageMap as a Map
       // ...
       messageMap.forEach((key, value) {
-        messages.add(ChatMessageModel(
-          messageContent: value['text'],
-          messageType: value['type'],
-          timestamp: value['timestamp'],
-        ));
+        if (messages.contains(value).toString() == false) {
+          messages.add(ChatMessageModel(
+            messageContent: value['text'],
+            messageType: value['type'],
+            timestamp: value['timestamp'],
+          ));
+        }
       });
-
       setState(() {
         //Do Something here
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
