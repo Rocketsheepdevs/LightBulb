@@ -31,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatPage()),
+          MaterialPageRoute(builder: (context) => SearchPage()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SearchPage()),
+          MaterialPageRoute(builder: (context) => ChatPage()),
         );
         break;
       case 2:
@@ -114,43 +114,56 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.keyboard_arrow_left,
-                          size: 24.0,
-                        ),
-                        onPressed: _onBackPressed,
-                      ),
-                    ),
-                    SizedBox(
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.keyboard_arrow_right,
-                          size: 24.0,
-                        ),
-                        onPressed: _onNextPressed,
-                      ),
-                    ),
-                  ],
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.keyboard_arrow_left,
+                                size: 50.0,
+                              ),
+                              onPressed: _onBackPressed,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.keyboard_arrow_right,
+                              size: 50.0,
+                            ),
+                            onPressed: _onNextPressed,
+                          ),
+                        ]),
+                  ),
                 ),
                 Positioned(
-                    bottom: 0,
-                    child: new Container(
-                      height: 42.0,
-                      width: MediaQuery.of(context).size.width,
-                      color: Color.fromRGBO(0, 0, 139, 0.7),
-                    ))
+                  bottom: 0,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: Color.fromRGBO(37, 150, 190, 0.9),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        userName[userIndex],
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
+        currentIndex: currentIndex,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.person_search),
