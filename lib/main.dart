@@ -11,6 +11,8 @@ void main() async {
       appId: "1:194400046349:web:760a46a4990771e781f444",
       messagingSenderId: "194400046349",
       projectId: "lightbulb-60abb",
+      databaseURL:
+          "https://lightbulb-60abb-default-rtdb.asia-southeast1.firebasedatabase.app/",
     ),
   );
   runApp(MyApp());
